@@ -133,6 +133,28 @@ export default function App() {
               </div>
               <div>
                 <Label
+                  htmlFor="contactPersonPosition"
+                  className="text-sm text-gray-700 mb-1.5 block"
+                >
+                  Contact Person Position{" "}
+                  <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  id="contactPersonPosition"
+                  {...register("contact_person_position", {
+                    required: "This field is required",
+                  })}
+                  className="border-0 border-b border-gray-300 rounded-none px-0 focus-visible:ring-0 focus-visible:border-[#673ab7] transition-colors"
+                  placeholder="Your answer"
+                />
+                {errors.contact_person && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.contact_person.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <Label
                   htmlFor="contactPersonMobile"
                   className="text-sm text-gray-700 mb-1.5 block"
                 >
