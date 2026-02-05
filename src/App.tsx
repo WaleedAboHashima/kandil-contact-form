@@ -4,11 +4,11 @@ import { Label } from "./components/ui/label";
 import { Button } from "./components/ui/button";
 
 type FormData = {
-  companyName: string;
-  companyWebsite: string;
-  contactPerson: string;
-  contactPersonPosition: string;
-  contactPersonMobile: string;
+  company_name: string;
+  company_website: string;
+  contact_person: string;
+  contact_person_position: string;
+  contact_person_mobile: string;
 };
 
 export default function App() {
@@ -53,12 +53,12 @@ export default function App() {
                 </Label>
                 <Input
                   id="companyName"
-                  {...register("companyName", { required: "This field is required" })}
+                  {...register("company_name", { required: "This field is required" })}
                   className="border-0 border-b border-gray-300 rounded-none px-0 focus-visible:ring-0 focus-visible:border-[#673ab7] transition-colors"
                   placeholder="Your answer"
                 />
-                {errors.companyName && (
-                  <p className="text-red-500 text-xs mt-1">{errors.companyName.message}</p>
+                {errors.company_name && (
+                  <p className="text-red-500 text-xs mt-1">{errors.company_name.message}</p>
                 )}
               </div>
 
@@ -68,12 +68,12 @@ export default function App() {
                 </Label>
                 <Input
                   id="companyWebsite"
-                  {...register("companyWebsite", { required: "This field is required" })}
+                  {...register("company_website", { required: "This field is required" })}
                   className="border-0 border-b border-gray-300 rounded-none px-0 focus-visible:ring-0 focus-visible:border-[#673ab7] transition-colors"
                   placeholder="Your answer"
                 />
-                {errors.companyName && (
-                  <p className="text-red-500 text-xs mt-1">{errors.companyName.message}</p>
+                {errors.company_website && (
+                  <p className="text-red-500 text-xs mt-1">{errors.company_website.message}</p>
                 )}
               </div>
               <div>
@@ -82,12 +82,12 @@ export default function App() {
                 </Label>
                 <Input
                   id="contactPerson"
-                  {...register("contactPerson", { required: "This field is required" })}
+                  {...register("contact_person", { required: "This field is required" })}
                   className="border-0 border-b border-gray-300 rounded-none px-0 focus-visible:ring-0 focus-visible:border-[#673ab7] transition-colors"
                   placeholder="Your answer"
                 />
-                {errors.contactPerson && (
-                  <p className="text-red-500 text-xs mt-1">{errors.contactPerson.message}</p>
+                {errors.contact_person && (
+                  <p className="text-red-500 text-xs mt-1">{errors.contact_person.message}</p>
                 )}
               </div>
               <div>
@@ -97,12 +97,12 @@ export default function App() {
                 <Input
                   id="contactPersonMobile"
                   type="tel"
-                  {...register("contactPersonMobile", { required: "This field is required" })}
+                  {...register("contact_person_mobile", { required: "This field is required" })}
                   className="border-0 border-b border-gray-300 rounded-none px-0 focus-visible:ring-0 focus-visible:border-[#673ab7] transition-colors"
                   placeholder="Your answer"
                 />
-                {errors.contactPersonMobile && (
-                  <p className="text-red-500 text-xs mt-1">{errors.contactPersonMobile.message}</p>
+                {errors.contact_person_mobile && (
+                  <p className="text-red-500 text-xs mt-1">{errors.contact_person_mobile.message}</p>
                 )}
               </div>
               <Button
