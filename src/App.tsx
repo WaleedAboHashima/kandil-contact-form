@@ -2,6 +2,12 @@ import { useForm } from "react-hook-form";
 import { Input } from "./components/ui/input";
 import { Label } from "./components/ui/label";
 import { Button } from "./components/ui/button";
+import { toast } from "sonner";
+import axios from "axios";
+import { useState } from "react";
+import { Spinner } from "./components/ui/spinner";
+import { getFrappeErrorMessage, renderServerMessage } from "./lib/utils";
+import { triggerSideCannons } from "./lib/confetti-utils";
 
 type FormData = {
   company_name: string;
@@ -15,12 +21,25 @@ export default function App() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormData>();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit = (data: FormData) => {
-    console.log("Form submitted:", data);
-    alert("Form successfully submitted!");
+  const onSubmit = async (data: FormData) => {
+    try {
+      setIsLoading(true);
+      await axios.post(import.meta.env.VITE_BASE_URL, data);
+      toast.success("Form submitted successfully");
+      triggerSideCannons();
+      reset();
+    } catch (err) {
+      //@ts-ignore
+      const errorMessage = getFrappeErrorMessage(err);
+      toast.error(renderServerMessage(errorMessage));
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -36,7 +55,8 @@ export default function App() {
           <img src="/logo-full.png" alt="Logo" className="w-1/2 mb-4 mx-auto" />
           <h1 className="text-3xl mb-2">Contact Form</h1>
           <p className="text-gray-600 text-sm">
-            Please fill out all required fields. We will get back to you as soon as possible.
+            Please fill out all required fields. We will get back to you as soon
+            as possible.
           </p>
         </div>
 
@@ -48,72 +68,100 @@ export default function App() {
 
             <div className="space-y-5 flex flex-col">
               <div>
-                <Label htmlFor="companyName" className="text-sm text-gray-700 mb-1.5 block">
+                <Label
+                  htmlFor="companyName"
+                  className="text-sm text-gray-700 mb-1.5 block"
+                >
                   Company Name <span className="text-red-500">*</span>
                 </Label>
                 <Input
                   id="companyName"
-                  {...register("company_name", { required: "This field is required" })}
+                  {...register("company_name", {
+                    required: "This field is required",
+                  })}
                   className="border-0 border-b border-gray-300 rounded-none px-0 focus-visible:ring-0 focus-visible:border-[#673ab7] transition-colors"
                   placeholder="Your answer"
                 />
                 {errors.company_name && (
-                  <p className="text-red-500 text-xs mt-1">{errors.company_name.message}</p>
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.company_name.message}
+                  </p>
                 )}
               </div>
 
               <div>
-                <Label htmlFor="companyWebsite" className="text-sm text-gray-700 mb-1.5 block">
+                <Label
+                  htmlFor="companyWebsite"
+                  className="text-sm text-gray-700 mb-1.5 block"
+                >
                   Company Website <span className="text-red-500">*</span>
                 </Label>
                 <Input
                   id="companyWebsite"
-                  {...register("company_website", { required: "This field is required" })}
+                  {...register("company_website", {
+                    required: "This field is required",
+                  })}
                   className="border-0 border-b border-gray-300 rounded-none px-0 focus-visible:ring-0 focus-visible:border-[#673ab7] transition-colors"
                   placeholder="Your answer"
                 />
                 {errors.company_website && (
-                  <p className="text-red-500 text-xs mt-1">{errors.company_website.message}</p>
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.company_website.message}
+                  </p>
                 )}
               </div>
               <div>
-                <Label htmlFor="contactPerson" className="text-sm text-gray-700 mb-1.5 block">
+                <Label
+                  htmlFor="contactPerson"
+                  className="text-sm text-gray-700 mb-1.5 block"
+                >
                   Contact Person <span className="text-red-500">*</span>
                 </Label>
                 <Input
                   id="contactPerson"
-                  {...register("contact_person", { required: "This field is required" })}
+                  {...register("contact_person", {
+                    required: "This field is required",
+                  })}
                   className="border-0 border-b border-gray-300 rounded-none px-0 focus-visible:ring-0 focus-visible:border-[#673ab7] transition-colors"
                   placeholder="Your answer"
                 />
                 {errors.contact_person && (
-                  <p className="text-red-500 text-xs mt-1">{errors.contact_person.message}</p>
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.contact_person.message}
+                  </p>
                 )}
               </div>
               <div>
-                <Label htmlFor="contactPersonMobile" className="text-sm text-gray-700 mb-1.5 block">
+                <Label
+                  htmlFor="contactPersonMobile"
+                  className="text-sm text-gray-700 mb-1.5 block"
+                >
                   Mobile Number <span className="text-red-500">*</span>
                 </Label>
                 <Input
                   id="contactPersonMobile"
                   type="tel"
-                  {...register("contact_person_mobile", { required: "This field is required" })}
+                  {...register("contact_person_mobile", {
+                    required: "This field is required",
+                  })}
                   className="border-0 border-b border-gray-300 rounded-none px-0 focus-visible:ring-0 focus-visible:border-[#673ab7] transition-colors"
                   placeholder="Your answer"
                 />
                 {errors.contact_person_mobile && (
-                  <p className="text-red-500 text-xs mt-1">{errors.contact_person_mobile.message}</p>
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.contact_person_mobile.message}
+                  </p>
                 )}
               </div>
               <Button
                 type="submit"
                 className="text-white px-6 ml-auto"
+                disabled={isLoading}
               >
-                Submit
+                {isLoading ? <Spinner /> : "Submit"}
               </Button>
             </div>
           </div>
-
         </form>
       </div>
     </div>
