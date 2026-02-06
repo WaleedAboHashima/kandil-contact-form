@@ -10,6 +10,7 @@ import { getFrappeErrorMessage, renderServerMessage } from "./lib/utils";
 import { triggerSideCannons } from "./lib/confetti-utils";
 
 type FormData = {
+  email: string;
   company_name: string;
   company_website: string;
   contact_person: string;
@@ -64,9 +65,32 @@ export default function App() {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
           {/* Company Information Section */}
           <div className="bg-card rounded-lg shadow-sm border border-gray-200 p-6 animate-fade-in animate-delay-100">
-            <h2 className="text-lg mb-4 text-gray-900">Company Information</h2>
+            <h2 className="text-lg mb-4 text-gray-900">Required Information</h2>
 
             <div className="space-y-5 flex flex-col">
+              <div>
+                <Label
+                  htmlFor="email"
+                  className="text-sm text-gray-700 mb-1.5 block"
+                >
+                  Email <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  id="email"
+                  {...register("email", {
+                    required: "This field is required",
+                  })}
+                  className="border-0 border-b border-gray-300 rounded-none px-0 focus-visible:ring-0 focus-visible:border-[#673ab7] transition-colors"
+                  placeholder="Your answer"
+                />
+                {errors.email && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.email.message}
+                  </p>
+                )}
+              </div>
+
+              
               <div>
                 <Label
                   htmlFor="companyName"
@@ -128,6 +152,28 @@ export default function App() {
                 {errors.contact_person && (
                   <p className="text-red-500 text-xs mt-1">
                     {errors.contact_person.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <Label
+                  htmlFor="contactPersonPosition"
+                  className="text-sm text-gray-700 mb-1.5 block"
+                >
+                  Contact Person Position{" "}
+                  <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  id="contactPersonPosition"
+                  {...register("contact_person_position", {
+                    required: "This field is required",
+                  })}
+                  className="border-0 border-b border-gray-300 rounded-none px-0 focus-visible:ring-0 focus-visible:border-[#673ab7] transition-colors"
+                  placeholder="Your answer"
+                />
+                {errors.contact_person_position && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.contact_person_position.message}
                   </p>
                 )}
               </div>
