@@ -140,7 +140,7 @@ export default function App() {
                   htmlFor="contactPerson"
                   className="text-sm text-gray-700 mb-1.5 block"
                 >
-                  Contact Person <span className="text-red-500">*</span>
+                  Point Of Contact <span className="text-red-500">*</span>
                 </Label>
                 <Input
                   id="contactPerson"
@@ -161,7 +161,7 @@ export default function App() {
                   htmlFor="contactPersonPosition"
                   className="text-sm text-gray-700 mb-1.5 block"
                 >
-                  Contact Person Position{" "}
+                  Position{" "}
                   <span className="text-red-500">*</span>
                 </Label>
                 <Input
