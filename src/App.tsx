@@ -80,6 +80,7 @@ export default function App() {
                   {...register("email", {
                     required: "This field is required",
                   })}
+                  type="email"
                   className="border-0 border-b border-gray-300 rounded-none px-0 focus-visible:ring-0 focus-visible:border-[#673ab7] transition-colors"
                   placeholder="Your answer"
                 />
